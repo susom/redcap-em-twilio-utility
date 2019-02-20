@@ -1,7 +1,7 @@
 {
   "name": "Twilio Utility",
 
-  "namespace":"Stanford\\TWilioUtility",
+  "namespace":"Stanford\\TwilioUtility",
 
   "description": "Twilio texting utility used by other external modules",
 
