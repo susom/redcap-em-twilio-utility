@@ -1,0 +1,90 @@
+{
+  "name": "Twilio Utility",
+
+  "namespace":"Stanford\\TWilioUtility",
+
+  "description": "Twilio texting utility used by other external modules",
+
+  "documentation": "README.md",
+
+  "versions": [
+    { "0.1": "Initial" }
+  ],
+
+  "authors": [
+    {
+      "name": "Andrew Martin",
+      "email": "andy123@stanford.edu",
+      "institution": "Stanford University"
+    },
+    {
+      "name": "Jae Lee",
+      "email": "jael@stanford.edu",
+      "institution": "Stanford University"
+    }
+  ],
+
+  "permissions": [
+  ],
+
+  "links": {
+    "control-center": [
+    ],
+    "project": [
+    ]
+  },
+  "no-auth-pages": [
+  ],
+
+  "project-settings": [
+    {
+      "key": "instructions",
+      "name": "<div class='alert alert-warning'><b>Enter some instructions here.<br></div>",
+      "type": "descriptive"
+    },
+    {
+      "key": "enable-project-debug-logging",
+      "name": "<b>Enable Debug Logging</b>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "twilio-sid",
+      "name": "Twilio SID",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "twilio-token",
+      "name": "Twilio token",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "twilio-number",
+      "name": "Twilio Number",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "delete-sms-from-log",
+      "name": "Delete logs from Twilio<br>Check this to delete logs from Twilio.",
+      "required": false,
+      "type": "checkbox"
+    },
+   {
+      "key": "phone-lookup-field",
+      "name": "Lookup phone number in this field",
+      "required": true,
+      "type": "field-list"
+
+    },
+    {
+      "key": "phone-lookup-field-event",
+      "name": "Event where phone field is located",
+      "required": true,
+      "type": "event-list"
+    }
+  ]
+
+}
