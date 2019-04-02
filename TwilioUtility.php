@@ -3,6 +3,9 @@ namespace Stanford\TwilioUtility;
 
 use Services_Twilio;
 use Exception;
+use ExternalModules\ExternalModules;
+use Message;
+use REDCap;
 
 class TwilioUtility extends \ExternalModules\AbstractExternalModule
 {
@@ -156,6 +159,85 @@ class TwilioUtility extends \ExternalModules\AbstractExternalModule
         $formatted = preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $number);
         return trim($formatted);
 
+    }
+
+
+    public function findRecordByPhone($phone, $phone_field, $phone_field_event) {
+
+        $this->emDebug("Locate record for this phone: ".$phone);
+        $get_fields = array(
+            REDCap::getRecordIdField(),
+            $phone_field
+        );
+        $event_name = REDCap::getEventNames(true, false, $phone_field_event);
+        $filter = "[" . $event_name . "][" .$phone_field . "] = '$phone'";
+
+
+        $records = REDCap::getData('array', null, $get_fields, null, null, false, false, false, $filter);
+        //$this->emDebug($filter, $records, $project_id, $pid, $filter, $event_name);
+
+        // return record_id or false
+        reset($records);
+        $first_key = key($records);
+        return ($first_key);
+    }
+
+    function sendEmail($to, $from, $subject, $msg)
+    {
+
+        // Prepare message
+        $email = new Message();
+        $email->setTo($to);
+        $email->setFrom($from);
+        $email->setSubject($subject);
+        $email->setBody($msg);
+
+        //logIt("about to send " . print_r($email,true), "DEBUG");
+
+        // Send Email
+        if (!$email->send()) {
+            $this->emLog('Error sending mail: ' . $email->getSendError() . ' with ' . json_encode($email));
+            return false;
+        }
+
+        return true;
+    }
+
+    function logEvent($msg, $record) {
+        $action = "Twilio Utility: Text Message Received";
+
+        REDCap::logEvent(
+            $action,  //action
+            $msg, //changes
+            NULL, //sql optional
+            $record //record optional
+        );
+    }
+    /*******************************************************************************************************************/
+    /* EXTERNAL MODULES METHODS                                                                                                    */
+    /***************************************************************************************************************** */
+
+
+    function emLog()
+    {
+        global $module;
+        $emLogger = ExternalModules::getModuleInstance('em_logger');
+        $emLogger->emLog($module->PREFIX, func_get_args(), "INFO");
+    }
+
+    function emDebug()
+    {
+        // Check if debug enabled
+        if ($this->getSystemSetting('enable-system-debug-logging') || ( !empty($_GET['pid']) && $this->getProjectSetting('enable-project-debug-logging'))) {
+            $emLogger = ExternalModules::getModuleInstance('em_logger');
+            $emLogger->emLog($this->PREFIX, func_get_args(), "DEBUG");
+        }
+    }
+
+    function emError()
+    {
+        $emLogger = ExternalModules::getModuleInstance('em_logger');
+        $emLogger->emLog($this->PREFIX, func_get_args(), "ERROR");
     }
 
 } // class

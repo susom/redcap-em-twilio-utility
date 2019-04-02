@@ -31,22 +31,29 @@
     "control-center": [
     ],
     "project": [
+      {
+        "name": "TwilioUtilty: Instructions to setup Twilio Webhook",
+        "icon": "gear",
+        "url": "src/WebhookInstructions.php"
+      }
     ]
   },
   "no-auth-pages": [
+    "src/HandleTextReceipt"
   ],
-
+  "system-settings": [
+    {
+      "key": "enable-system-debug-logging",
+      "name": "<b>Enable Debug Logging (system-wide)</b><i>(Requires emLogger)</i>",
+      "required": false,
+      "type": "checkbox"
+    }
+  ],
   "project-settings": [
     {
       "key": "instructions",
-      "name": "<div class='alert alert-warning'><b>Enter some instructions here.<br></div>",
+      "name": "<div class='alert alert-warning'><b>Enter your Twilio credentials here.<br></div>",
       "type": "descriptive"
-    },
-    {
-      "key": "enable-project-debug-logging",
-      "name": "<b>Enable Debug Logging</b>",
-      "required": false,
-      "type": "checkbox"
     },
     {
       "key": "twilio-sid",
@@ -72,18 +79,57 @@
       "required": false,
       "type": "checkbox"
     },
-   {
-      "key": "phone-lookup-field",
-      "name": "Lookup phone number in this field",
+    {
+      "key": "handle-incoming-text",
+      "name": "<div class='alert alert-info'>Handle Incoming Text<br>Do you want this EM to forward any incoming texts to your email?</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "email-to",
+      "name": "Forward texts to this email",
       "required": true,
-      "type": "field-list"
-
+      "type": "text",
+      "branchingLogic": {
+        "field": "handle-incoming-text",
+        "value": "1"
+      }
+    },
+    {
+      "key": "forwarding-email-subject",
+      "name": "Specify subject of email",
+      "required": true,
+      "type": "text",
+      "branchingLogic": {
+        "field": "handle-incoming-text",
+        "value": "1"
+      }
+    },
+    {
+      "key": "phone-lookup-field",
+      "name": "<div class='alert alert-info'>If you would like to locate the record that is associated with the incoming number, enter the phone number field here.</div>",
+      "required": true,
+      "type": "field-list",
+      "branchingLogic": {
+        "field": "handle-incoming-text",
+        "value": "1"
+      }
     },
     {
       "key": "phone-lookup-field-event",
       "name": "Event where phone field is located",
       "required": true,
-      "type": "event-list"
+      "type": "event-list",
+      "branchingLogic": {
+        "field": "handle-incoming-text",
+        "value": "1"
+      }
+    },
+    {
+      "key": "enable-project-debug-logging",
+      "name": "<b>Enable Debug Logging</b><i>(Requires emLogger)</i>",
+      "required": false,
+      "type": "checkbox"
     }
   ]
 
