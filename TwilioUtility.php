@@ -97,6 +97,10 @@ class TwilioUtility extends \ExternalModules\AbstractExternalModule
         }
     }
 
+    function emGetNumber() {
+        return self::formatNumber($this->getProjectSetting("twilio-number"));
+    }
+
 
 
       /**
