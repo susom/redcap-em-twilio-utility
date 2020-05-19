@@ -34,9 +34,9 @@ $url = $module->getUrl('src/HandleTextReceipt.php', true, true);
 <hr>
 <h4>Instructions on setting up the Twilio Webhook</h4>
 <br><br>
-<h5>    SETTING UP A SCRIPT TO HANDLE INCOMING TEXTS TO YOUR TWILIO NUMBER: </h5>
+<h5>SETTING UP A SCRIPT TO HANDLE INCOMING TEXTS TO YOUR TWILIO NUMBER: </h5>
     <p>
-    You can add a webhook to handle incoming texts:
+    You can add a webhook to forward incoming texts to the emails entered in the EM configuration.
 
     <ol>
         <li>Navigate to Phone Numbers / Manager Numbers / Active Numbers /</li>
