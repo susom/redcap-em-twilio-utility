@@ -29,11 +29,29 @@ $url = $module->getUrl('src/HandleTextReceipt.php', true, true);
 <body>
 
 <!-- Top nav bar -->
+<div class="container">
 
+<hr>
 <h4>Instructions on setting up the Twilio Webhook</h4>
+<br><br>
+<h5>    SETTING UP A SCRIPT TO HANDLE INCOMING TEXTS TO YOUR TWILIO NUMBER: </h5>
+    <p>
+    You can add a webhook to handle incoming texts:
+
+    <ol>
+        <li>Navigate to Phone Numbers / Manager Numbers / Active Numbers /</li>
+        <li>Scroll down to Messaging and set these values</li>
+        <ol type="a">
+            <li>CONFIGURE WITH : Select 'Webhooks, TwiML Bins, Function, Studo or Proxy' from dropdown</li>
+            <li>A MESSAGE COMES IN : Select 'Webhook' from dropdown and enter your url in the textbox</li>
+
+        </ol>
+    </ol>
+    </p>
 
 <h7>Enter this link in the webhooks field: <br> <?php echo $url; ?></h7>
 
-
+<hr>
+</div>
 
 </body>
